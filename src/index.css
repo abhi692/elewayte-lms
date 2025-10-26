@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Globals */
+:root{
+  --page-bg:#F7F8FB;
+  --sidebar:#0F172A;
+  --sidebar-active:rgba(255,255,255,.08);
+  --primary:#2563EB;
+}
+
+html, body, #root { height: 100%; }
+body { @apply bg-[var(--page-bg)] text-slate-900 font-inter; }
