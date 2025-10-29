@@ -1,11 +1,16 @@
 // src/pages/courses/CurriculumIndex.jsx
 import { useOutletContext, useNavigate, useParams } from "react-router-dom";
 import { Plus, List } from "lucide-react";
+import { useState } from "react";
+import { AddCurriculumDrawer } from "../../components/AddCurriculumDrawer";
 
 export default function CurriculumIndex() {
   const { course } = useOutletContext();     // from CourseEditLayout
   const navigate = useNavigate();
   const { courseId } = useParams();
+
+  // NEW: right-drawer open state
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   // Dummy single-row list (mirror of your screenshot)
   const rows = [
@@ -27,7 +32,10 @@ export default function CurriculumIndex() {
           </span>
         </div>
 
-        <button className="inline-flex items-center gap-1.5 h-9 px-3 rounded-md border border-slate-200 bg-white text-sm text-slate-700 hover:bg-slate-50">
+        <button
+          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-md border border-slate-200 bg-white text-sm text-slate-700 hover:bg-slate-50"
+          onClick={() => setDrawerOpen(true)}               // NEW: open drawer
+        >
           <Plus size={16} />
           Add Curriculum
         </button>
@@ -82,6 +90,17 @@ export default function CurriculumIndex() {
           </div>
         ))}
       </div>
+
+      {/* NEW: Right-side slide-in drawer */}
+      <AddCurriculumDrawer
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        onCreate={(payload) => {
+          setDrawerOpen(false);
+          // Plug your API/create flow here; keeping alert as placeholder
+          alert(`Created: ${payload.name} (mode: ${payload.mode})`);
+        }}
+      />
     </div>
   );
 }
